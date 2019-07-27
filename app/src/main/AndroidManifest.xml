@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nikiss.issouf.expansion">
+
+
+    <!-- Nécessaire pour accéder à Google Play Licensing -->
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+
+    <!-- Nécessaire pour télécharger les fichiers depuis Google Play -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Nécessaire pour garder le CPU actif pendant le téléchargement des fichiers (Ne garde pas l'écran allumé) -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Nécessaire pour connaître l'état de la connexion réseau et répondre aux changements -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Nécessaire pour vérifier si la connexion WI-FI est activée -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- Nécessaire pour lire et écrire les fichiers d'extension sur un stockage partagé -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.nikiss.issouf.expansion.TutoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+        In order to start the service, it must be uniquely registered with
+        the package manager here.
+        -->
+        <service android:name="com.nikiss.issouf.expansion.SampleDownloaderService" />
+
+        <!--
+         In order for the alarm manager to contact the downloader script, the receiver
+         must be uniquely registered with the package manager here.
+        -->
+        <receiver android:name="com.nikiss.issouf.expansion.SampleAlarmReceiver" />
+        <provider
+            android:name="com.nikiss.issouf.expansion.SampleZipFileProvider"
+            android:authorities="com.nikiss.issouf.expansion.SampleZipFileProvider"
+            android:exported="false" >
+        </provider>
+
+        <activity
+            android:name="com.nikiss.issouf.expansion.DownloaderActivity"
+            android:label="@string/download_title"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.nikiss.issouf.expansion.MainActivity"></activity>
+    </application>
+
+</manifest>
